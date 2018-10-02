@@ -14,7 +14,7 @@ class GUI(QtWidgets.QMainWindow):
         self.initUI()
 
     """
-    Method to create the widgets and main tabs for 
+    Method to create the frames, tabs, and 
     """
     def initUI(self):
         self.teamNumber = self.getTeamNumber()
@@ -62,9 +62,9 @@ class GUI(QtWidgets.QMainWindow):
         #Layout
         self.tabs = QtWidgets.QTabWidget()
         #self.tabs.addTab(self.frame2019, self.deepspaceIcon, "")
-        self.tabs.addTab(self.frame2018, self.powerupIcon, "")
-        self.tabs.addTab(self.frame2017, self.steamworksIcon, "")
-        self.tabs.addTab(self.frame2016, self.strongholdIcon, "")
+        self.tabs.addTab(self.frame2018, self.powerupIcon, "Power Up")
+        self.tabs.addTab(self.frame2017, self.steamworksIcon, "Steamworks")
+        self.tabs.addTab(self.frame2016, self.strongholdIcon, "Stronghold")
         self.tabs.setIconSize(QtCore.QSize(100, 50))
         
         self.layout = QtWidgets.QVBoxLayout()
@@ -90,8 +90,6 @@ class GUI(QtWidgets.QMainWindow):
         helpMenu = menuBar.addMenu('&Help')
         helpMenu.addAction(self.openAboutAction)
         
-        #Make sure there are things on NetworkTables
-        #self.sendToRobot()
         self.setCentralWidget(self.mainFrame)
         self.setWindowTitle('AutoSelect 4237 - Version ' + str(VERSION))
         self.setWindowIcon(self.windowIcon)
@@ -101,7 +99,10 @@ class GUI(QtWidgets.QMainWindow):
         self.about.close()
         print("Close Event received")
         
-    def sendToRobot(self): #Sends information to the robot over Networktables
+    """
+    Base method for sending selected autonomous
+    """
+    def sendToRobot(self):
         if self.tabs.currentIndex() == 0:
             self.sendToRobot2018()
         elif self.tabs.currentIndex() == 1:
@@ -123,7 +124,6 @@ class GUI(QtWidgets.QMainWindow):
     Method to get the current team number from the FRC Driver Station
     '''             
     def getTeamNumber(self):
-        #Get the team number from the driver station files
         print("Searching for team number")
         try:
             with open("C:\\Users\\Public\\Documents\\FRC\\FRC DS Data Storage.ini", 'r') as DSFile:
@@ -134,7 +134,6 @@ class GUI(QtWidgets.QMainWindow):
                         split[1] = split[1].replace("\"", "")
                         teamNumber = (int)(split[1])
                         return teamNumber
-                        break
         except:
             print("Team number could not be found")
         
