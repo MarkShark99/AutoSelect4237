@@ -7,24 +7,22 @@ from lib.frames import GameFrame2019, GameFrame2018, GameFrame2017, GameFrame201
 VERSION = 4.0
 
 class GUI(QtWidgets.QMainWindow):                                                
+    iconSize = 75
+    
     def __init__(self):
         super(GUI, self).__init__()
         self.initUI()
 
+    """
+    Method to create the widgets and main tabs for 
+    """
     def initUI(self):
         self.teamNumber = self.getTeamNumber()
-        #self.teamNumber = None
         print("Team number set to " + str(self.teamNumber))
         self.roboRIOIP = "roborio-" + str(self.teamNumber) + "-frc.local"
-        self.iconSize = 75
         
-        #Misc
         self.transmitter = RoboRIOTransmitter.RoboRIOTransmitter(self.roboRIOIP)
 
-        self.futureLabel = QtWidgets.QLabel("Coming Soon")
-        self.futureLabel.setStyleSheet('font-size: 60pt;')
-        self.futureLabel.setAlignment(QtCore.Qt.AlignCenter | QtCore.Qt.AlignVCenter)
-        
         #About window
         self.about = AboutWindow.AboutWindow()
         
@@ -63,11 +61,10 @@ class GUI(QtWidgets.QMainWindow):
 
         #Layout
         self.tabs = QtWidgets.QTabWidget()
-        self.tabs.addTab(self.frame2019, self.deepspaceIcon, "")
+        #self.tabs.addTab(self.frame2019, self.deepspaceIcon, "")
         self.tabs.addTab(self.frame2018, self.powerupIcon, "")
         self.tabs.addTab(self.frame2017, self.steamworksIcon, "")
         self.tabs.addTab(self.frame2016, self.strongholdIcon, "")
-        #self.tabs.currentChanged.connect(lambda: self.sendToRobot())
         self.tabs.setIconSize(QtCore.QSize(100, 50))
         
         self.layout = QtWidgets.QVBoxLayout()
