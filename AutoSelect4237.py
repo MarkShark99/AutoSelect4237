@@ -61,22 +61,18 @@ class GUI(QtWidgets.QMainWindow):
 
         #Layout
         self.tabs = QtWidgets.QTabWidget()
-        #self.tabs.addTab(self.frame2019, self.deepspaceIcon, "")
-        self.tabs.addTab(self.frame2018, self.powerupIcon, "Power Up")
-        self.tabs.addTab(self.frame2017, self.steamworksIcon, "Steamworks")
-        self.tabs.addTab(self.frame2016, self.strongholdIcon, "Stronghold")
+        self.tabs.addTab(self.frame2019, self.deepspaceIcon, "")
+        self.tabs.addTab(self.frame2018, self.powerupIcon, "")
+        self.tabs.addTab(self.frame2017, self.steamworksIcon, "")
+        self.tabs.addTab(self.frame2016, self.strongholdIcon, "")
         self.tabs.setIconSize(QtCore.QSize(100, 50))
         
         self.layout = QtWidgets.QVBoxLayout()
         self.layout.addWidget(self.tabs)
-        
-        if self.teamNumber != 4237:
-            if self.teamNumber == None:
-                print("Error verifying team number")
-                self.layout.addWidget(self.teamNotFoundLabel)
-            else:
-                print("Program in use by other team")
-                self.layout.addWidget(self.DRMLabel)
+                
+        if self.teamNumber == None:
+            print("Error verifying team number")
+            self.layout.addWidget(self.teamNotFoundLabel)
         
         self.mainFrame = QtWidgets.QFrame()
         self.mainFrame.setLayout(self.layout)
@@ -137,7 +133,6 @@ class GUI(QtWidgets.QMainWindow):
         except:
             print("Team number could not be found")
         
-
 def main():
     app = QtWidgets.QApplication(sys.argv)
     window = GUI()
